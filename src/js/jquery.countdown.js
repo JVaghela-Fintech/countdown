@@ -399,7 +399,10 @@ $.countdown.UTCDate(-7, new Date(2013, 12-1, 25, 12, 0)) */
 		_updateCountdown: function(elem, inst) {
 			elem = elem.jquery ? elem : $(elem);
 			inst = inst || this._getInst(elem);
-			if (!inst) {
+			if (!inst || !inst.options) {
+				if(inst._until) {
+					window.onerror('Countdown not properly destroyed. Until:'+inst._until.toString(), 'jquery.countdown.js', 404);
+			        }
 				return;
 			}
 			elem.html(this._generateHTML(inst)).toggleClass(this._rtlClass, inst.options.isRTL);
